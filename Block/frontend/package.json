@@ -1,0 +1,42 @@
+{
+  "name": "authchain-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+  "react-router-dom": "^6.14.0",
+  "qrcode.react": "^3.1.0",
+  "ethers": "^5.6.9",
+  "ipfs-http-client": "^56.0.3",
+  "@simplewebauthn/browser": "^7.2.0",
+  "@simplewebauthn/server": "^7.2.0"
+},
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "resolutions": {
+    "nth-check": "^2.0.1",
+    "postcss": "^8.4.31",
+    "webpack-dev-server": "^4.15.1"
+  }
+}

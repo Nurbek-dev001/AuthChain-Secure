@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuthChain Secure - Платформа кибербезопасности на блокчейне</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --accent: #3b82f6;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray: #94a3b8;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: var(--light);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(56, 70, 100, 0.5);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .logo-text {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--accent), #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        nav a:hover {
+            color: var(--accent);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 650px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 25px;
+            background: linear-gradient(90deg, #ffffff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            color: #cbd5e1;
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+        
+        .hero-features {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(30, 41, 59, 0.7);
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(100, 116, 139, 0.3);
+            backdrop-filter: blur(5px);
+        }
+        
+        .feature i {
+            color: var(--accent);
+            font-size: 24px;
+        }
+        
+        /* Platform Section */
+        .platform {
+            padding: 100px 0;
+            background: rgba(15, 23, 42, 0.5);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--accent), #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-title p {
+            color: #94a3b8;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 15px;
+            padding: 35px 30px;
+            border: 1px solid rgba(100, 116, 139, 0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-card i {
+            font-size: 40px;
+            margin-bottom: 25px;
+            color: var(--accent);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            color: #cbd5e1;
+            margin-bottom: 20px;
+        }
+        
+        /* Authentication Section */
+        .auth-section {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .auth-container {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .auth-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .auth-phone {
+            position: relative;
+            width: 300px;
+            height: 600px;
+            border-radius: 40px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 15px solid #0f172a;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+        
+        .auth-content {
+            flex: 1;
+        }
+        
+        .auth-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+        }
+        
+        .auth-content p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        
+        .auth-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .step {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .step-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+        
+        .step-content p {
+            color: #94a3b8;
+            margin: 0;
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(15, 23, 42, 0.9);
+            padding: 60px 0 30px;
+            border-top: 1px solid rgba(56, 70, 100, 0.5);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: var(--accent);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(100, 116, 139, 0.3);
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .auth-container {
+                flex-direction: column;
+            }
+            
+            .auth-image {
+                order: -1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-features {
+                flex-direction: column;
+            }
+            
+            .feature-card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="logo-text">AuthChain Secure</div>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i> Главная</a></li>
+                    <li><a href="#"><i class="fas fa-lock"></i> Безопасность</a></li>
+                    <li><a href="#"><i class="fas fa-link"></i> Блокчейн</a></li>
+                    <li><a href="#"><i class="fas fa-cogs"></i> Решения</a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> Контакты</a></li>
+                </ul>
+            </nav>
+            
+            <div class="auth-buttons">
+                <button class="btn btn-outline"><i class="fas fa-sign-in-alt"></i> Войти</button>
+                <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Регистрация</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Кибербезопасность нового поколения на блокчейне</h1>
+                <p>Децентрализованная система аутентификации с биометрией и двухфакторной защитой для максимальной безопасности ваших данных</p>
+                
+                <div class="hero-buttons">
+                    <button class="btn btn-primary"><i class="fas fa-rocket"></i> Начать бесплатно</button>
+                    <button class="btn btn-outline"><i class="fas fa-play-circle"></i> Смотреть демо</button>
+                </div>
+                
+                <div class="hero-features">
+                    <div class="feature">
+                        <i class="fas fa-fingerprint"></i>
+                        <div>Биометрическая аутентификация</div>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <div>2FA защита</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Section -->
+    <section class="platform">
+        <div class="container">
+            <div class="section-title">
+                <h2>Наша платформа</h2>
+                <p>Инновационные технологии для защиты вашей цифровой идентичности и активов</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-fingerprint"></i>
+                    <h3>Биометрическая защита</h3>
+                    <p>Используйте отпечатки пальцев, распознавание лица или сканирование радужной оболочки для безопасной аутентификации</p>
+                    <a href="#" class="btn btn-outline">Подробнее</a>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Двухфакторная аутентификация</h3>
+                    <p>Дополнительный уровень безопасности с подтверждением через мобильное устройство или аппаратный ключ</p>
+                    <a href="#" class="btn btn-outline">Подробнее</a>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-link"></i>
+                    <h3>Блокчейн-технологии</h3>
+                    <p>Децентрализованное хранение данных и неизменяемые журналы аудита для полной прозрачности</p>
+                    <a href="#" class="btn btn-outline">Подробнее</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Authentication Section -->
+    <section class="auth-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Система аутентификации</h2>
+                <p>Трехуровневая защита для вашей цифровой идентичности</p>
+            </div>
+            
+            <div class="auth-container">
+                <div class="auth-image">
+                    <div class="auth-phone floating">
+                        <!-- Здесь будет изображение или анимация интерфейса аутентификации -->
+                    </div>
+                </div>
+                
+                <div class="auth-content">
+                    <h2>Как это работает</h2>
+                    <p>Наша система использует комбинацию передовых технологий для обеспечения непревзойденной безопасности. Ваши биометрические данные никогда не покидают ваше устройство, а каждый этап аутентификации записывается в блокчейн для полной прозрачности.</p>
+                    
+                    <div class="auth-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3>Биометрическая верификация</h3>
+                                <p>Подтвердите свою личность с помощью сканера отпечатка пальца или распознавания лица</p>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3>Двухфакторное подтверждение</h3>
+                                <p>Получите одноразовый код на доверенное устройство или используйте аппаратный ключ</p>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3>Блокчейн-подпись</h3>
+                                <p>Подтвердите транзакцию в блокчейне для завершения аутентификации</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" style="margin-top: 30px;">
+                        <i class="fas fa-shield-alt"></i> Попробовать демо
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>AuthChain Secure</h3>
+                    <p>Децентрализованная платформа кибербезопасности нового поколения с использованием блокчейн-технологий и биометрической аутентификации.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Технологии</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Блокчейн-аутентификация</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Биометрическая защита</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> 2FA решения</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Децентрализованное хранение</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Решения</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Для бизнеса</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Для банков</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Для государственных учреждений</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Для IoT устройств</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-envelope"></i> info@authchain.com</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +7 (495) 123-45-67</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Москва, Пресненская наб., 12</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 AuthChain Secure. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Анимация для карточек при прокрутке
+        document.addEventListener('DOMContentLoaded', function() {
+            const featureCards = document.querySelectorAll('.feature-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            featureCards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+            
+            // Добавление эффекта параллакса
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.scrollY;
+                const parallaxElements = document.querySelectorAll('.floating');
+                
+                parallaxElements.forEach(el => {
+                    const speed = 0.1;
+                    const yPos = -scrollPosition * speed;
+                    el.style.transform = `translateY(${yPos}px)`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
