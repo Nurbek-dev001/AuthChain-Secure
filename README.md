@@ -1,6 +1,6 @@
 # AuthChain Secure - Blockchain-Powered Cybersecurity Platform
 
-![AuthChain Logo](https://via.placeholder.com/150?text=A)
+
 
 AuthChain Secure is a cutting-edge cybersecurity solution that leverages blockchain technology, biometric authentication, and two-factor verification to provide unparalleled security for digital identities and sensitive data.
 
